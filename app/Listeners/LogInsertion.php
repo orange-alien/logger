@@ -22,10 +22,10 @@ class LogInsertion
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  \App\Events\ModelChanged  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(ModelChanged $event)
     {
         $model = $event->model;
 
