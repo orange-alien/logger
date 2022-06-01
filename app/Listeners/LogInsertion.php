@@ -43,7 +43,7 @@ class LogInsertion
         }
         // 削除(論理削除)
         else if( isset($model->deleted_at) ) {
-            \Log::debug('===== 削除 =====');
+            \Log::debug('===== 論理削除 =====');
             
             // 変更前の値
             \Log::debug( null );
