@@ -37,7 +37,8 @@ class LogInsertion
             // 変更後の値
             \Log::debug( $model->getAttributes() );
         }
-        // 削除
+        // 削除(論理削除)
+        //       物理削除の判定は SoftDeletes トレイトの isForceDeleting() で判定する必要がある(はず)
         else if(!$model->exists) {
             \Log::debug('===== 削除 =====');
             
