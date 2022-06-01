@@ -55,10 +55,10 @@ class LogInsertion
         else {
             \Log::debug('===== 更新 =====');
             $changes = $model->getChanges();
-            $changeKyes = array_keys($changes);
+            $changeKeys = array_keys($changes);
 
             // 変更前の値
-            \Log::debug( Arr::only($model->getOriginal(), $changeKyes) );
+            \Log::debug( Arr::only($model->getOriginal(), $changeKeys) );
             // 変更後の値
             \Log::debug( $changes );
         }
