@@ -54,7 +54,7 @@ class User extends Authenticatable
      */
     protected $dispatchesEvents = [
         'created' => ModelChanged::class,
-        'updated' => ModelChanged::class,
+        'updated' => ModelChanged::class, // updated ではなく updating だったかも
         'deleted' => ModelChanged::class,
     ];
 }
