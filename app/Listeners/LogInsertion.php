@@ -37,14 +37,17 @@ class LogInsertion
             // 変更後の値
             \Log::debug( $model->getAttributes() );
         }
-        // 削除(論理削除)
+        // 削除(物理削除)
         else if(!$model->exists) {
+            \Log::debug('==== 物理削除 ====');
+        }
+        // 削除(論理削除)
+        else if( isset($model->deleted_at) ) {
             \Log::debug('===== 削除 =====');
             
             // 変更前の値
             \Log::debug( null );
             // 変更後の値
-            //   物理削除時(SoftDeletesトレイトを使用していないとき)は getDeletedAtColumn() でエラーになるので別途考慮が必要 
             $deletedAtColumn = $model->getDeletedAtColumn();
             \Log::debug( $model->getAttribute($deletedAtColumn) );
         }
