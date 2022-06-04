@@ -35,8 +35,12 @@ class ModelDeletedLogInsertion
             \Log::debug('=> 論理削除');
             $deletedAtColumn = $model->getDeletedAtColumn();
             
-            $oldAttributes = [$deletedAtColumn => null];
-            $newAttributes = $model->getAttributes($deletedAtColumn);
+            $oldAttributes = [
+                $deletedAtColumn => null
+            ];
+            $newAttributes = [
+                $deletedAtColumn => $model->getAttribute($deletedAtColumn)
+            ];
         }
         // 物理削除
         else {

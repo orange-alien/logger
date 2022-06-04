@@ -6,7 +6,6 @@ use App\Events\ModelChanged;
 use App\Events\ModelCreated;
 use App\Events\ModelUpdated;
 use App\Events\ModelDeleted;
-use App\Listeners\LogInsertion;
 use App\Listeners\ModelCreatedLogInsertion;
 use App\Listeners\ModelDeletedLogInsertion;
 use App\Listeners\ModelUpdatedLogInsertion;
@@ -36,17 +35,4 @@ class EventServiceProvider extends ServiceProvider
             ModelDeletedLogInsertion::class,
         ],
     ];
-
-    /**
-     * Register any events for your application.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        Event::listen(
-            ModelChanged::class,
-            [LogInsertion::class, 'handle']
-        );
-    }
 }
