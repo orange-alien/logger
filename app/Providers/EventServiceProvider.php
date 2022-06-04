@@ -5,8 +5,10 @@ namespace App\Providers;
 use App\Events\ModelChanged;
 use App\Events\ModelCreated;
 use App\Events\ModelUpdated;
+use App\Events\ModelDeleted;
 use App\Listeners\LogInsertion;
 use App\Listeners\ModelCreatedLogInsertion;
+use App\Listeners\ModelDeletedLogInsertion;
 use App\Listeners\ModelUpdatedLogInsertion;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -29,6 +31,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ModelUpdated::class => [
             ModelUpdatedLogInsertion::class,
+        ],
+        ModelDeleted::class => [
+            ModelDeletedLogInsertion::class,
         ],
     ];
 

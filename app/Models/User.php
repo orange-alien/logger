@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Events\ModelChanged;
 use App\Events\ModelCreated;
+use App\Events\ModelDeleted;
 use App\Events\ModelUpdated;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -57,6 +57,6 @@ class User extends Authenticatable
     protected $dispatchesEvents = [
         'created' => ModelCreated::class,
         'updated' => ModelUpdated::class, // save() でも発火する
-        'deleted' => ModelChanged::class,
+        'deleted' => ModelDeleted::class,
     ];
 }
