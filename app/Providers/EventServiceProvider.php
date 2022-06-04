@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Events\ModelChanged;
 use App\Events\ModelCreated;
+use App\Events\ModelUpdated;
 use App\Listeners\LogInsertion;
 use App\Listeners\ModelCreatedLogInsertion;
+use App\Listeners\ModelUpdatedLogInsertion;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -24,6 +26,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ModelCreated::class => [
             ModelCreatedLogInsertion::class,
+        ],
+        ModelUpdated::class => [
+            ModelUpdatedLogInsertion::class,
         ],
     ];
 
