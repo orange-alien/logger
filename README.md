@@ -8,7 +8,7 @@
 $ php artisan tinker
 
 # 新規作成
->>> use \App\Models\User
+>>> use \App\Models\User;
 >>> $user = new User();
 >>> $user->name = "tarou";
 >>> $user->email = "tarou@example.com";
@@ -16,19 +16,18 @@ $ php artisan tinker
 >>> $user->save();
 
 # 更新
->>> $user->email = "tarou_2@example.net""
->>> $user->email = "tarou_2@example.net"
+>>> $user->email = "tarou_2@example.net";
 >>> $user->name = "yamada tarou";
->>> $user->save()
+>>> $user->save();
 
 # 論理削除
->>> $user->delete()
+>>> $user->delete();
 
 # リストア
->>> $user->restore()
+>>> $user->restore();
 
 # 物理削除
->>> $user->forceDelete()
+>>> $user->forceDelete();
 
 
 >>> exit
