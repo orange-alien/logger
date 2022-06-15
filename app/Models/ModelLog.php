@@ -14,7 +14,7 @@ class ModelLog extends Model
     const TYPE_UPDATED       = 2; // 更新
     const TYPE_SOFT_DELETED  = 3; // 論理削除
     const TYPE_RESTORED      = 4; // 論理削除解除
-    const TYPE_DELETD        = 5; // 物理削除
+    const TYPE_DELETED       = 5; // 物理削除
 
     /**
      * The attributes that are mass assignable.
