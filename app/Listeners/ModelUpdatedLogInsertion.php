@@ -53,8 +53,8 @@ class ModelUpdatedLogInsertion
             'table_name'     => $model->getTable(),
             'table_pk'       => $model->id,
             'type'           => $isRestoration
-                                    ? ModelLog::TYPE_RESTORED
-                                    : ModelLog::TYPE_UPDATED,
+                                    ? ModelLog::TYPE_RESTORE
+                                    : ModelLog::TYPE_UPDATE,
             'old_attributes' => json_encode($oldAttributes),
             'new_attributes' => json_encode($newAttributes)
         ]);

@@ -51,8 +51,8 @@ class ModelDeletedLogInsertion
             'table_name'     => $model->getTable(),
             'table_pk'       => $model->id,
             'type'           => $model->exists
-                                    ? ModelLog::TYPE_SOFT_DELETED
-                                    : ModelLog::TYPE_DELETED,
+                                    ? ModelLog::TYPE_SOFT_DELETE
+                                    : ModelLog::TYPE_DELETE,
             'old_attributes' => json_encode($oldAttributes),
             'new_attributes' => isset($newAttributes)
                                     ? json_encode($newAttributes)

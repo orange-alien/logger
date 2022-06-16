@@ -37,7 +37,7 @@ class ModelCreatedLogInsertion
             'user_id'        => \Auth::id() ?? null,
             'table_name'     => $model->getTable(),
             'table_pk'       => $model->id,
-            'type'           => ModelLog::TYPE_CREATED,
+            'type'           => ModelLog::TYPE_CREATE,
             'old_attributes' => $oldAttributes,
             'new_attributes' => json_encode($newAttributes),
         ]);
