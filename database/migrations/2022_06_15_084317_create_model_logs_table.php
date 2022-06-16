@@ -21,7 +21,7 @@ class CreateModelLogsTable extends Migration
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete()->comment('対象レコードのPK');
             $table->string('table_name', 255)->comment('対象テーブル');
             $table->unsignedBigInteger('table_pk')->comment('対象レコードのPK');
-            $table->unsignedTinyInteger('type')->comment('ログ種別 1:登録, 2:更新, 3:論理削除, 4:論理削除解除, 5:物理削除');
+            $table->unsignedTinyInteger('type')->comment('1:create, 2:update, 3:soft_delete, 4:restore, 5:delete');
             $table->json('old_attributes')->nullable()->comment('変更前の値');
             $table->json('new_attributes')->nullable()->comment('変更後の値');
             $table->timestamps();
