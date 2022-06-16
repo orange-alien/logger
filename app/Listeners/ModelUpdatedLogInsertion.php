@@ -3,7 +3,9 @@
 namespace App\Listeners;
 
 use App\Events\ModelUpdated;
+use App\Models\ModelLog;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\InteractsWithQueue;
 
 class ModelUpdatedLogInsertion
@@ -42,7 +44,19 @@ class ModelUpdatedLogInsertion
         $newAttributeKeys = array_keys($newAttributes);
         $oldAttributes = \Arr::only($model->getOriginal(), $newAttributeKeys);
 
-        \Log::debug($oldAttributes);
-        \Log::debug($newAttributes);
+        // 論理削除かどうかの判定
+        $deletedAtColumn = $model->getDeletedAtColumn();
+        $isRestoration = isset($oldAttributes[$deletedAtColumn]) && is_null($newAttributes[$deletedAtColumn]);
+
+        ModelLog::create([
+            'user_id'        => \Auth::id() ?? null,
+            'table_name'     => $model->getTable(),
+            'table_pk'       => $model->id,
+            'type'           => $isRestoration
+                                    ? ModelLog::TYPE_RESTORE
+                                    : ModelLog::TYPE_UPDATE,
+            'old_attributes' => json_encode($oldAttributes),
+            'new_attributes' => json_encode($newAttributes)
+        ]);
     }
 }

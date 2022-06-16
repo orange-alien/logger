@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\ModelCreated;
+use App\Models\ModelLog;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -26,14 +27,19 @@ class ModelCreatedLogInsertion
      */
     public function handle(ModelCreated $event)
     {
-        \Log::debug('===== 新規作成 =====');
-
         $model = $event->model;
 
         // 変更前後の値
         $oldAttributes = null;
         $newAttributes = $model->getAttributes();
-        \Log::debug($oldAttributes);
-        \Log::debug($newAttributes);
+
+        ModelLog::create([
+            'user_id'        => \Auth::id() ?? null,
+            'table_name'     => $model->getTable(),
+            'table_pk'       => $model->id,
+            'type'           => ModelLog::TYPE_CREATE,
+            'old_attributes' => $oldAttributes,
+            'new_attributes' => json_encode($newAttributes),
+        ]);
     }
 }

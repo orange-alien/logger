@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\ModelDeleted;
+use App\Models\ModelLog;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -26,13 +27,10 @@ class ModelDeletedLogInsertion
      */
     public function handle(ModelDeleted $event)
     {
-        \Log::debug('==== 削除 ====');
-
         $model = $event->model;
 
         // 論理削除
         if( $model->exists ) {
-            \Log::debug('=> 論理削除');
             $deletedAtColumn = $model->getDeletedAtColumn();
             
             $oldAttributes = [
@@ -44,12 +42,21 @@ class ModelDeletedLogInsertion
         }
         // 物理削除
         else {
-            \Log::debug('=> 物理削除');
             $oldAttributes = $model->getOriginal();
             $newAttributes = null;
         }
 
-        \Log::debug($oldAttributes);
-        \Log::debug($newAttributes);
+        ModelLog::create([
+            'user_id'        => \Auth::id() ?? null,
+            'table_name'     => $model->getTable(),
+            'table_pk'       => $model->id,
+            'type'           => $model->exists
+                                    ? ModelLog::TYPE_SOFT_DELETE
+                                    : ModelLog::TYPE_DELETE,
+            'old_attributes' => json_encode($oldAttributes),
+            'new_attributes' => isset($newAttributes)
+                                    ? json_encode($newAttributes)
+                                    : null,
+        ]);
     }
 }
