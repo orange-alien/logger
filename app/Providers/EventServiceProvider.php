@@ -39,11 +39,11 @@ class EventServiceProvider extends ServiceProvider
         ModelTrashed::class => [
             ModelTrashedLogInsertion::class,
         ],
-        // 論理削除を使用しているときの物理削除
+        // 物理削除
         ModelForceDeleted::class => [
             ModelForceDeletedLogInsertion::class,
         ],
-        // 論理削除を使用していないときの削除(物理削除)
+        // 物理削除
         ModelDeleted::class => [
             ModelDeletedLogInsertion::class,
         ],
