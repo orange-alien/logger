@@ -42,7 +42,7 @@ class ModelTrashedLogInsertion
             'user_id'        => \Auth::id() ?? null,
             'table_name'     => $model->getTable(),
             'table_pk'       => $model->id,
-            'type'           => ModelLog::TYPE_SOFT_DELETE,
+            'type'           => ModelLog::TYPE_TRASHED,
             'old_attributes' => json_encode($oldAttributes),
             'new_attributes' => isset($newAttributes)
                                     ? json_encode($newAttributes)
