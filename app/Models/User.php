@@ -59,8 +59,9 @@ class User extends Authenticatable
     protected $dispatchesEvents = [
         'created' => ModelCreated::class,
         'updated' => ModelUpdated::class, // save(), restore() でも発火する
-        // 'deleted' => ModelDeleted::class, // 削除
         'trashed' => ModelTrashed::class, // 論理削除
+        // リストは updated で検知できるので不要
+        'deleted' => ModelDeleted::class, // 削除
         'forceDeleted' => ModelForceDeleted::class, // 物理削除
     ];
 }
