@@ -2,13 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Events\ModelDeleted;
+use App\Events\ModelForceDeleted;
 use App\Models\ModelLog;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ModelDeletedLogInsertion
+class ModelForceDeletedLogInsertion
 {
     /**
      * Create the event listener.
@@ -23,24 +22,18 @@ class ModelDeletedLogInsertion
     /**
      * Handle the event.
      *
-     * @param  \App\Events\ModelDeleted $event
+     * @param  \App\Events\ModelForceDeleted  $event
      * @return void
      */
-    public function handle(ModelDeleted $event)
+    public function handle(ModelForceDeleted $event)
     {
         $model = $event->model;
-
-        // 論理削除使用時は trashed, forceDeleted イベントで処理するので deleted では処理しない
-        $hasSoftDeletesTrait = in_array(SoftDeletes::class, class_uses($model), true);
-        if( $hasSoftDeletesTrait ) {
-            return;
-        }
 
         ModelLog::create([
             'user_id'        => \Auth::id() ?? null,
             'table_name'     => $model->getTable(),
             'table_pk'       => $model->id,
-            'type'           => ModelLog::TYPE_DELETE,
+            'type'           => ModelLog::TYPE_FORCE_DELETE,
             'old_attributes' => json_encode( $model->getOriginal() ),
             'new_attributes' => null,
         ]);
