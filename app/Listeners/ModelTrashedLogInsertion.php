@@ -44,9 +44,7 @@ class ModelTrashedLogInsertion
             'table_pk'       => $model->id,
             'type'           => ModelLog::TYPE_TRASHED,
             'old_attributes' => json_encode($oldAttributes),
-            'new_attributes' => isset($newAttributes)
-                                    ? json_encode($newAttributes)
-                                    : null,
+            'new_attributes' => json_encode($newAttributes),
         ]);
     }
 }
